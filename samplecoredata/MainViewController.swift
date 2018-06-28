@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
         self.title = "Student List"
         
         
-//        SubjectModel.AddSubjects()
+        SubjectModel.AddSubjects()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,7 +73,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = studentList[indexPath.row].firstname! + " " + studentList[indexPath.row].lastname!
         
-        
+        let stu = studentList[indexPath.row]
+    
+        let sum = stu.marks?.reduce(0, { (result, val) -> Int in
+            let m = val as! MarkList
+            return  result + Int(m.marks)
+        })
+        cell.detailTextLabel?.text = String(sum!)
 //        cell.detailTextLabel.text  = studentList[indexPath.row].marks
         return cell
     }

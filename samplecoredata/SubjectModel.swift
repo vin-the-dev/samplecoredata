@@ -13,6 +13,18 @@ struct SubjectModel {
     private init() {}
     
     static func AddSubjects(){
+        let request: NSFetchRequest<Subject> = Subject.fetchRequest()
+        
+        do {
+            let subs = try PersistanceService.context.fetch(request)
+            if subs.count > 0 {
+                return
+            }
+        } catch {
+            
+        }
+        
+        
         var sub1 = Subject(context: PersistanceService.context)
         sub1.subjectname = "Physics"
         PersistanceService.saveContext()
